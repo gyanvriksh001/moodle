@@ -1,6 +1,6 @@
 FROM php:8.2-apache
 
-# Install dependencies and PHP extensions
+# Install system dependencies
 RUN apt-get update && apt-get install -y \
     libpq-dev \
     libzip-dev \
@@ -12,6 +12,7 @@ RUN apt-get update && apt-get install -y \
     libonig-dev \
     libxml2-dev \
     libssl-dev \
+    libcurl4-openssl-dev \
     && docker-php-ext-install \
     pgsql \
     pdo_pgsql \
@@ -33,12 +34,11 @@ RUN a2enmod rewrite
 # Set working directory
 WORKDIR /var/www/html
 
-# Copy all project files
+# Copy app files
 COPY . /var/www/html/
 
-# Set permissions
+# Set file permissions
 RUN chown -R www-data:www-data /var/www/html \
     && chmod -R 755 /var/www/html
 
-# Expose port 80
 EXPOSE 80
