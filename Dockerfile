@@ -1,19 +1,18 @@
 FROM php:8.2-apache
 
-# Install required dependencies and PHP extensions
+# Install dependencies and PHP extensions
 RUN apt-get update && apt-get install -y \
     libpq-dev \
     libzip-dev \
     zip \
     unzip \
-    libjpeg62-turbo-dev \
+    libjpeg-dev \
     libpng-dev \
     libfreetype6-dev \
     libonig-dev \
     libxml2-dev \
     libssl-dev \
-    && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
-    && docker-php-ext-install -j$(nproc) \
+    && docker-php-ext-install \
     pgsql \
     pdo_pgsql \
     gd \
@@ -34,11 +33,12 @@ RUN a2enmod rewrite
 # Set working directory
 WORKDIR /var/www/html
 
-# Copy all files
+# Copy all project files
 COPY . /var/www/html/
 
-# Permissions
+# Set permissions
 RUN chown -R www-data:www-data /var/www/html \
     && chmod -R 755 /var/www/html
 
+# Expose port 80
 EXPOSE 80
