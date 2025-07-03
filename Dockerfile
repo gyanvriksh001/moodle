@@ -42,3 +42,4 @@ RUN chown -R www-data:www-data /var/www/html \
     && chmod -R 755 /var/www/html
 
 EXPOSE 80
+RUN echo "max_input_vars=5000" >> /usr/local/etc/php/conf.d/max_input_vars.ini
