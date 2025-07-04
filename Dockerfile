@@ -43,3 +43,7 @@ RUN chown -R www-data:www-data /var/www/html \
 
 EXPOSE 80
 RUN echo "max_input_vars=5000" >> /usr/local/etc/php/conf.d/max_input_vars.ini
+# Ensure moodledata permissions
+RUN mkdir -p /tmp/moodledata && \
+    chown -R www-data:www-data /tmp/moodledata && \
+    chmod -R 775 /tmp/moodledata
