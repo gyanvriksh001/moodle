@@ -47,7 +47,4 @@ RUN echo "max_input_vars=5000" >> /usr/local/etc/php/conf.d/max_input_vars.ini
 RUN mkdir -p /tmp/moodledata && \
     chown -R www-data:www-data /tmp/moodledata && \
     chmod -R 775 /tmp/moodledata
-# Force HTTPS Redirect (adds code to config.php during build)
-RUN echo "<?php if (\$_SERVER['HTTP_X_FORWARDED_PROTO'] != 'https') {" \
-         "header('Location: https://' . \$_SERVER['HTTP_HOST'] . \$_SERVER['REQUEST_URI']);" \
-         "exit(); } ?>" >> /var/www/html/config.php
+
