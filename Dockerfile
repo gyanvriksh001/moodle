@@ -47,4 +47,5 @@ RUN echo "max_input_vars=5000" >> /usr/local/etc/php/conf.d/max_input_vars.ini
 RUN mkdir -p /tmp/moodledata && \
     chown -R www-data:www-data /tmp/moodledata && \
     chmod -R 775 /tmp/moodledata
+CMD ["apache2ctl", "-D", "FOREGROUND"]
 
