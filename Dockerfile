@@ -41,7 +41,6 @@ COPY . /var/www/html/
 RUN chown -R www-data:www-data /var/www/html \
     && chmod -R 755 /var/www/html
 
-EXPOSE 80
 RUN echo "max_input_vars=5000" >> /usr/local/etc/php/conf.d/max_input_vars.ini
 # Ensure moodledata permissions
 RUN mkdir -p /tmp/moodledata && \
@@ -49,5 +48,11 @@ RUN mkdir -p /tmp/moodledata && \
     chmod -R 775 /tmp/moodledata
 CMD ["apache2ctl", "-D", "FOREGROUND"]
 RUN rm -f /tmp/moodledata/climaintenance.html
+RUN mkdir -p /tmp/moodledata && \
+    chown -R www-data:www-data /tmp/moodledata && \
+    chmod -R 775 /tmp/moodledata
+    
+EXPOSE 80
+CMD ["apache2-foreground"]
 
 
