@@ -48,4 +48,6 @@ RUN mkdir -p /tmp/moodledata && \
     chown -R www-data:www-data /tmp/moodledata && \
     chmod -R 775 /tmp/moodledata
 CMD ["apache2ctl", "-D", "FOREGROUND"]
+RUN rm -f /tmp/moodledata/climaintenance.html
+
 
